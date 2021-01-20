@@ -18,6 +18,7 @@ public class Order {
     private Float amount;
     private String currency;
     private String comment;
+    private long line;
 }
 
 
