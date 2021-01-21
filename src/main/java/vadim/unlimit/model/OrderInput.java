@@ -1,4 +1,4 @@
-package vadim.unlimit;
+package vadim.unlimit.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,12 +13,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class Order {
+public class OrderInput {
     private Long orderId;
     private Float amount;
     private String currency;
     private String comment;
     private long line;
+    private String filename;
 }
 
 
