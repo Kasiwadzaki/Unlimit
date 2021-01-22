@@ -22,7 +22,7 @@ public class OrdersParser {
     @Autowired
     ObjectMapper objectMapper;
 
-     List<OrderInput> parse(File file) throws IOException {
+    List<OrderInput> parse(File file) throws IOException {
         if (getFileExtension(file).equals("csv")) {
             AtomicLong count = new AtomicLong(1);
             return Files.readAllLines(Paths.get(String.valueOf(file)), StandardCharsets.UTF_8)
