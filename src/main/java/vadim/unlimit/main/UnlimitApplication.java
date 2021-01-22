@@ -1,5 +1,6 @@
 package vadim.unlimit.main;
 
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -11,7 +12,9 @@ import vadim.unlimit.services.ParseFileService;
 public class UnlimitApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(UnlimitApplication.class, args);
+        SpringApplication app = new SpringApplication(UnlimitApplication.class);
+        app.setBannerMode(Banner.Mode.OFF);
+        ApplicationContext context = app.run(args);
         context.getBean(ParseFileService.class).run(args);
     }
 
