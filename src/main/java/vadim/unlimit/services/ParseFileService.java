@@ -2,11 +2,12 @@ package vadim.unlimit.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vadim.unlimit.mapping.OrdersMapping;
 import vadim.unlimit.model.OrderInput;
+import vadim.unlimit.parse.OrdersParser;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -15,22 +16,19 @@ public class ParseFileService {
     @Autowired
     OrdersParser ordersParser;
     @Autowired
-    OrdersConversion ordersConversion;
+    OrdersMapping ordersMapping;
 
     public void run(String[] args) {
+        Arrays.stream(args).parallel().forEach(this::attemptsToParse);
+    }
 
-        for (int i = 0; i < args.length; i++) {
-            File file = new File(args[i]);
-            try {
-                List<OrderInput> orderInputs = ordersParser.parse(file);
-                for (OrderInput orderInput : orderInputs) {
-                    ordersConversion.printResultConversion(ordersConversion.conversion(orderInput));
-                }
-            } catch (NoSuchFileException e) {
-                System.out.println("Файл не найден");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    void attemptsToParse(String arg) {
+        File file = new File(arg);
+        try {
+            List<OrderInput> orderInputs = ordersParser.parse(file);
+            orderInputs.forEach(order -> ordersMapping.printResultConversion(ordersMapping.conversion(order)));
+        } catch (Exception e) {
+            //Так как ничео логировать нельзя здесь пусто
         }
     }
 }

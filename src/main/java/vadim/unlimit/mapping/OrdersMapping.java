@@ -1,4 +1,4 @@
-package vadim.unlimit.services;
+package vadim.unlimit.mapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,12 +8,12 @@ import vadim.unlimit.model.OrderInput;
 import vadim.unlimit.model.OrderResult;
 
 @Service
-public class OrdersConversion {
+public class OrdersMapping {
 
     @Autowired
     ObjectMapper objectMapper;
 
-    OrderResult conversion(OrderInput orderInput) {
+    public OrderResult conversion(OrderInput orderInput) {
         return OrderResult.builder()
                 .id(orderInput.getOrderId())
                 .amount(orderInput.getAmount())
@@ -25,7 +25,7 @@ public class OrdersConversion {
                 .build();
     }
 
-    void printResultConversion(OrderResult orderResult) {
+    public void printResultConversion(OrderResult orderResult) {
         try {
             System.out.println(objectMapper.writeValueAsString(orderResult));
         } catch (JsonProcessingException e) {
