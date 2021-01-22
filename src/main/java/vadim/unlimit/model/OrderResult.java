@@ -12,11 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class OrderResult {
-     private long id;
-     private float amount;
-     private String currency;
-     private String comment;
-     private String filename;
-     private long line;
-     private String result;
+    private Long id;
+    private Float amount;
+    private String currency;
+    private String comment;
+    private String filename;
+    private long line;
+    private String result;
 }

@@ -1,6 +1,5 @@
 package vadim.unlimit.parse;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,7 @@ public class JsonParse implements FileFormatParser {
             orderInput.setLine(count);
             orderInput.setFilename(fileName);
             return orderInput;
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             //Так как ничео логировать нельзя здесь пусто
         }
         return null;

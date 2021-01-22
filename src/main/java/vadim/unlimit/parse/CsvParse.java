@@ -7,14 +7,14 @@ import vadim.unlimit.model.OrderInput;
 public class CsvParse implements FileFormatParser {
     @Override
     public OrderInput fileLineParse(String lineFromFile, long count, String fileName) {
-            String[] csvArray = lineFromFile.split(",");
-            return OrderInput.builder()
-                    .orderId(Long.parseLong(csvArray[0]))
-                    .amount(Float.parseFloat(csvArray[1]))
-                    .currency(csvArray[2])
-                    .comment(csvArray[3])
-                    .line(count)
-                    .filename(fileName)
-                    .build();
+        String[] csvArray = lineFromFile.split(",");
+        return OrderInput.builder()
+                .orderId(csvArray[0])
+                .amount(csvArray[1])
+                .currency(csvArray[2])
+                .comment(csvArray[3])
+                .line(count)
+                .filename(fileName)
+                .build();
     }
 }

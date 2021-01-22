@@ -14,12 +14,13 @@ import lombok.ToString;
 @ToString
 @Builder
 public class OrderInput {
-    private Long orderId;
-    private Float amount;
+    private String orderId;
+    private String amount;
     private String currency;
     private String comment;
     private long line;
     private String filename;
+    private String parseResult;
 }
 
 

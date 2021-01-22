@@ -14,15 +14,21 @@ public class OrdersMapping {
     ObjectMapper objectMapper;
 
     public OrderResult conversion(OrderInput orderInput) {
-        return OrderResult.builder()
-                .id(orderInput.getOrderId())
-                .amount(orderInput.getAmount())
-                .currency(orderInput.getCurrency())
-                .comment(orderInput.getComment())
-                .filename(orderInput.getFilename())
-                .line(orderInput.getLine())
-                .result("OK")
-                .build();
+        OrderResult orderResult = new OrderResult();
+        try {
+            orderResult.setId(Long.parseLong(orderInput.getOrderId()));
+            orderResult.setAmount(Float.parseFloat(orderInput.getAmount()));
+        } catch (Exception e) {
+            orderResult.setResult(e.toString());
+        }
+        orderResult.setCurrency(orderInput.getCurrency());
+        orderResult.setComment(orderInput.getComment());
+        orderResult.setLine(orderInput.getLine());
+        orderResult.setFilename(orderInput.getFilename());
+        if (orderResult.getResult() == null) {
+            orderResult.setResult("OK");
+        }
+        return orderResult;
     }
 
     public void printResultConversion(OrderResult orderResult) {

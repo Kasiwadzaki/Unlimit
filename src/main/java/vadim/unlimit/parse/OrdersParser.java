@@ -1,6 +1,5 @@
 package vadim.unlimit.parse;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
@@ -33,6 +33,7 @@ public class OrdersParser {
         return Files.readAllLines(Paths.get(String.valueOf(file)), StandardCharsets.UTF_8)
                 .stream()
                 .map(line -> fileFormatParser.fileLineParse(line, count.getAndIncrement(), file.getName()))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
