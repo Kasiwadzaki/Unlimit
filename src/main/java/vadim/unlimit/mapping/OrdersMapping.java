@@ -35,7 +35,7 @@ public class OrdersMapping {
         try {
             System.out.println(objectMapper.writeValueAsString(orderResult));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            //Так как ничео логировать нельзя здесь пусто
         }
     }
 }
