@@ -13,19 +13,30 @@ public class CsvParse implements FileFormatParser {
     public OrderInput fileLineParse(String lineFromFile, long count, String fileName) {
         if (!lineFromFile.isEmpty()) {
             List<String> csv = new ArrayList<>(Arrays.asList(lineFromFile.split(",")));
-            if (chekingElemetsInList(csv) == null) {
-                return null;
-            } else {
-                csv = chekingElemetsInList(csv);
+            if (csv.size() == 3) {
+                csv.add("");
             }
             OrderInput orderInput = validationCsv(csv);
-            orderInput.setOrderId(csv.get(0));
-            orderInput.setAmount(csv.get(1));
-            orderInput.setCurrency(csv.get(2));
-            orderInput.setComment(csv.get(3));
-            orderInput.setLine(count);
-            orderInput.setFilename(fileName);
-            return orderInput;
+            try {
+                orderInput.setOrderId(csv.get(0));
+                orderInput.setAmount(csv.get(1));
+                orderInput.setCurrency(csv.get(2).trim());
+                orderInput.setComment(csv.get(3).trim());
+                orderInput.setLine(count);
+                orderInput.setFilename(fileName);
+                return orderInput;
+            } catch (IndexOutOfBoundsException index) {
+                orderInput.setParseResult("Неправильно заполненная строка");
+                orderInput.setLine(count);
+                orderInput.setFilename(fileName);
+                return orderInput;
+            } catch (Exception e) {
+                return OrderInput.builder()
+                        .line(count)
+                        .filename(fileName)
+                        .parseResult(e.toString())
+                        .build();
+            }
         }
         return null;
     }
@@ -34,19 +45,9 @@ public class CsvParse implements FileFormatParser {
         OrderInput orderInput = new OrderInput();
         for (String s : csv) {
             if (s.trim().equals("")) {
-                orderInput.setParseResult("Некоторые столбцы пустые");
+                orderInput.setParseResult("Неправильно заполненная строка");
             }
         }
         return orderInput;
-    }
-
-    List<String> chekingElemetsInList(List<String> csv) {
-        if (csv.size() == 3) {
-            csv.add("");
-        }
-        if (csv.size() <= 2) {
-            return null;
-        }
-        return csv;
     }
 }

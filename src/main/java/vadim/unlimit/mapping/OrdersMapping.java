@@ -19,7 +19,7 @@ public class OrdersMapping {
             orderResult.setId(Long.parseLong(orderInput.getOrderId()));
             orderResult.setAmount(Float.parseFloat(orderInput.getAmount()));
         } catch (Exception e) {
-            orderResult.setResult(e.toString());
+            orderResult.setResult("Поле  id или amount заполнено неправильно");
         }
         orderResult.setCurrency(orderInput.getCurrency());
         orderResult.setComment(orderInput.getComment());
