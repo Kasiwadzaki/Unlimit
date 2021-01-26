@@ -29,6 +29,7 @@ public class ParseFileService {
             orderInputs.forEach(order -> ordersMapping.printResultConversion(ordersMapping.conversion(order)));
         } catch (Exception e) {
             //Так как ничео логировать нельзя здесь пусто
+            e.printStackTrace();
         }
     }
 }

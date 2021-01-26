@@ -25,6 +25,9 @@ public class OrdersMapping {
         orderResult.setComment(orderInput.getComment());
         orderResult.setLine(orderInput.getLine());
         orderResult.setFilename(orderInput.getFilename());
+        if (orderInput.getParseResult() != null) {
+            orderResult.setResult(orderInput.getParseResult());
+        }
         if (orderResult.getResult() == null) {
             orderResult.setResult("OK");
         }
